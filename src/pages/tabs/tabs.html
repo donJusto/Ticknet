@@ -1,0 +1,26 @@
+
+<ion-menu [content]="content" >
+    <ion-header>
+      <ion-toolbar color="secondary">
+        <ion-title>Menu</ion-title>
+      </ion-toolbar> 
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <button ion-item *ngFor="let p of pages" (tap)="openPage(p)">
+          {{p.title}}
+        </button>
+        <button ion-item (click)="exitAlert()">
+          Quitter application
+        </button>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+
+<ion-tabs color= "secondary">
+  <ion-tab [root]="tab1Root" tabTitle="Réservations" tabIcon="phone-portrait"></ion-tab>
+  <ion-tab [root]="tab2Root" tabTitle="Tickets" tabIcon="archive"></ion-tab>
+  <ion-tab [root]="tab3Root" tabTitle="Arrêts" tabIcon="bus"></ion-tab>
+  <ion-tab [root]="tab4Root" tabTitle="Préférences" tabIcon="ribbon"></ion-tab>  
+</ion-tabs>
