@@ -9,12 +9,13 @@ import { ConnexionPage } from '../connexion/connexion';
 import firebase from 'firebase';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { ShareService } from '../../services/share.service';
 
 @Component({
   selector: 'page-arrets',
   templateUrl: 'arrets.html'
 })
-export class ArretsPage implements OnInit {
+export class ArretsPage /*implements OnInit*/ {
 
   public countryRef:firebase.database.Reference;
   public mytest = {};
@@ -24,33 +25,34 @@ export class ArretsPage implements OnInit {
   public test : Array<any>;
   public tic = "tac";
 
-  constructor(public modalCtrl:ModalController, public navCtrl: NavController) {
+  constructor(public shareService: ShareService, public modalCtrl:ModalController, public navCtrl: NavController) {
 
+    this.shareService.initializeItems();
   }
 
-  ngOnInit() {
+  // ngOnInit() {
     
-    console.log('ionViewDidLoad DepartPage');
-    this.countryRef = firebase.database().ref('pays');    
-    this.countryRef.on('value', countryList => {
-      let countries = [];
-      countryList.forEach( country => {
-        countries.push(country.val());
-        return false;
-      });
+  //   console.log('ionViewDidLoad DepartPage');
+  //   this.countryRef = firebase.database().ref('pays');    
+  //   this.countryRef.on('value', countryList => {
+  //     let countries = [];
+  //     countryList.forEach( country => {
+  //       countries.push(country.val());
+  //       return false;
+  //     });
     
-      this.countryList = countries;
-      this.loadedCountryList = countries;
-      this.saveVariable();
-      console.log("confirmé");
+  //     this.countryList = countries;
+  //     this.loadedCountryList = countries;
+  //     this.saveVariable();
+  //     console.log("confirmé");
      
-      // console.log(this.loadedCountryList[1][23].ville);  
-      // this.parcourir();
-      // console.log(this.test);  
+  //     // console.log(this.loadedCountryList[1][23].ville);  
+  //     // this.parcourir();
+  //     // console.log(this.test);  
 
       
-    });
-  }
+  //   });
+  // }
     // const countryRef: firebase.database.Reference = firebase.database().ref(`/benin/`);
     // countryRef.on('value', testSnapshot => {
     //   this.mytest = testSnapshot.val();
@@ -69,8 +71,8 @@ export class ArretsPage implements OnInit {
   // }
   saveVariable(){
     this.navCtrl.push(ArriveePage, {
-      loadedCountryList : this.loadedCountryList, 
-      tic: this.tic
+      list : this.loadedCountryList, 
+      ti: this.tic
     })
     console.log(this.tic);
   }

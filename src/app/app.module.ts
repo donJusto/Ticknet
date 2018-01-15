@@ -5,6 +5,7 @@ import { MyApp } from './app.component';
 import { Storage } from '@ionic/storage';
 import { NativeStorage } from '@ionic-native/native-storage';
 import { IonicStorageModule } from '@ionic/storage';
+
 // import { ToastController } from 'ionic-angular';
 
 //Pages
@@ -19,7 +20,7 @@ import { ConnexionPage } from '../pages/connexion/connexion';
 import { SignupPage } from '../pages/signup/signup';
 import { ReinitialisermdpPage } from '../pages/reinitialisermdp/reinitialisermdp';
 import { ProfilePage } from '../pages/profile/profile';
-
+import { ShareService } from '../services/share.service';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -95,8 +96,11 @@ const firebaseConfig = {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     FirebaseProvider,
     AuthProvider,
+    ShareService,
     NativeStorage,
     
+    
+  
   ]
 })
 export class AppModule {}

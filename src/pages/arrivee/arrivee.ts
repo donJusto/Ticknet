@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { ShareService } from '../../services/share.service';
 import { ArretsPage } from '../arrets/arrets';
 
 /**
@@ -20,15 +20,18 @@ export class ArriveePage {
 
   public loadedCountryList:any;
   public tic: string;
+  serviceData: Array<any>;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public shareService : ShareService, public navCtrl: NavController, public navParams: NavParams) {
     this.loadedCountryList = navParams.get('loadedCountryList');
     this.tic = navParams.get('tic');
-    console.log(this.tic);
+    this.serviceData = shareService.initializeItems();
+    console.log("get"+this.tic);
   }
 
   ionViewDidLoad() {
+
     console.log('ionViewDidLoad ArriveePage');
   }
 
