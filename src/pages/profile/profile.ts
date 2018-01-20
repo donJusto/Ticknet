@@ -41,7 +41,7 @@ export class ProfilePage {
   creerProfile() {
     this.afAuth.authState.take(1).subscribe(auth => {
       this.afDB.object(`profile/${auth.uid}`).set(this.profile)
-        // .then(() => this.navCtrl.setRoot(ReservationsPage));
+        .then(() => this.navCtrl.setRoot(ReservationsPage));
       console.log(this.profile.nom);
       console.log('User created!')
       // this.events.publish ('user:created','this.profile.nom'  );

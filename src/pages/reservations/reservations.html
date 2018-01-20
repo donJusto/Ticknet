@@ -58,7 +58,7 @@
     <form>
       <ion-item>
         <ion-label floating>Départ</ion-label>
-        <ion-input type="text" placeholder="Départ" name="depart" (tap)="getDepart()" required=""></ion-input>
+        <ion-input type="text" placeholder="Départ" [(ngModel)]="ville" name="depart" (tap)="getDepart()" required=""></ion-input>
       </ion-item>
       <ion-item>
         <ion-label >Arrivée</ion-label>

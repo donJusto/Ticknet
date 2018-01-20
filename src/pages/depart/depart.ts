@@ -1,11 +1,13 @@
 import { Component,OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import firebase from 'firebase';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 import { ProfilePage } from '../profile/profile';
 import { Profile } from '../../models/profile.model';
+import { ReservationsPage } from '../reservations/reservations';
 /**
  * Generated class for the DepartPage page.
  *
@@ -27,12 +29,33 @@ export class DepartPage implements OnInit{
   public countryRef:firebase.database.Reference;
   public mytest = {};
   profile = {} as Profile;
+  public ville :any;
+
   
   
-  constructor(public navCtrl: NavController, public navParams: NavParams,private afDb: AngularFireDatabase) {
+  
+  constructor(private nativeStorage: NativeStorage, public events: Events, public navCtrl: NavController, public navParams: NavParams,private afDb: AngularFireDatabase) {
 
     
   }
+
+  ngOnInit() {
+  this.countryRef = firebase.database().ref('pays');    
+  this.countryRef.on('value', countryList => {
+    let countries = [];
+    countryList.forEach( country => {
+      countries.push(country.val());
+      return false;
+    });
+  
+    this.countryList = countries;
+    this.loadedCountryList = countries;
+  
+  })
+}
+
+//enreigistrer localement le choix d'une ville de départ
+
 
   initializeItems(): void {
     this.countryList = this.loadedCountryList;
@@ -90,21 +113,26 @@ export class DepartPage implements OnInit{
   //   });
   }
 
+public ajouterDepart(ville){
+  console.log('ville created!')
+  this.events.publish(ville);
+  this.storeChoice();
+  this.navCtrl.push(ReservationsPage);
+}
+
+public storeChoice(){
+  this.nativeStorage.setItem('myVille', {
+    ville : this.ville 
+  })
+  .then(
+    () => console.log('Stored item!'),
+    error => console.error('Error storing item', error)
+  );
+}
+
 
   closeModal() {
     this.navCtrl.pop();
   }
-  ngOnInit() {
-    
-    this.paysObservable = this.getPays('/benin/Cotonou');
-    
-    }
-    
-    getPays(listPath): Observable<any[]> {
-    
-    return this.afDb.list(listPath).valueChanges();
-    
-    }
-
 
 }

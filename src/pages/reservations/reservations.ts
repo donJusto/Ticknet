@@ -11,7 +11,8 @@ import { Profile } from './../../models/profile.model';
 import { ArretsPage } from '../arrets/arrets';
 
 //import component
-import { ModalController, AlertController } from 'ionic-angular';
+import { NativeStorage } from '@ionic-native/native-storage';
+import { ModalController, AlertController,  } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { AuthProvider } from '../../providers/auth/auth';
 import { Toast } from '@ionic-native/toast';
@@ -41,7 +42,7 @@ export class ReservationsPage {
 
 
 
-  constructor(public events : Events, private afAuth: AngularFireAuth, private toastCtrl: ToastController, public alrtCtrl: AlertController, public menuCtrl: MenuController, public platform: Platform, public authData: AuthProvider, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public afDB: AngularFireDatabase) {
+  constructor(private nativeStorage: NativeStorage, public events : Events, private afAuth: AngularFireAuth, private toastCtrl: ToastController, public alrtCtrl: AlertController, public menuCtrl: MenuController, public platform: Platform, public authData: AuthProvider, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public afDB: AngularFireDatabase) {
     this.pays = afDB.list('/pays').valueChanges();
     this.pages = [
       { title: 'Connexion', component: ConnexionPage },
@@ -50,18 +51,27 @@ export class ReservationsPage {
     // this.loadedCountryList = navParams.get('loadedCountryList');
     // this.tic = navParams.get('tic');
     // console.log(this.tic);
+    this.events.subscribe('ville:created', (ville) => {
+      // user and time are the same arguments passed in `events.publish(user, time)`
+      console.log('Welcome', ville);
+    });
   }
 
   ionViewDidLoad() {
     this.afAuth.authState.take(1).subscribe(data => {
       if (data && data.email && data.uid) {
         this.toastCtrl.create({ 
-          message: `Bon retour sur Ticknet, ${data.email}`,
-          duration: 3000
+          message: `Bienvenue sur Ticknet, ${data.email}`,
+          duration: 4000,
+          position: 'top',
+          showCloseButton: true,
+          closeButtonText	: 'Fermer',
+          cssClass : 'welcome'
+
         }).present();
         
         this.profileData = this.afDB.object(`profile/${data.uid}`);
-        console.table(this.profileData);
+        // console.table(this.profileData);
 
       }
       else {

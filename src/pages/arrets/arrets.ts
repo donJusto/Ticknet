@@ -47,8 +47,8 @@ export class ArretsPage implements OnInit {
       this.loadedCountryList = countries;
   this.native = countries;
 
-      this.saveVariable();
-      console.log("confirmé");
+  //     this.saveVariable();
+  //     console.log("confirmé");
      
       // console.log(this.loadedCountryList[1][23].ville);  
       // this.parcourir();
