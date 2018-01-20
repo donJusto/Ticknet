@@ -47,26 +47,21 @@ export class ReservationsPage {
       { title: 'Connexion', component: ConnexionPage },
       { title: 'S\'identifier', component: SignupPage }
     ];
-    this.loadedCountryList = navParams.get('loadedCountryList');
-    this.tic = navParams.get('tic');
-    console.log(this.tic);
+    // this.loadedCountryList = navParams.get('loadedCountryList');
+    // this.tic = navParams.get('tic');
+    // console.log(this.tic);
   }
-  forIndex(){
-    for(var i=1; i<= 100; i++){
-      this.nbr[i-1] = i;
-    }
-  }
-
 
   ionViewDidLoad() {
     this.afAuth.authState.take(1).subscribe(data => {
       if (data && data.email && data.uid) {
-        this.toastCtrl.create({
-          message: 'Bienvenue à Ticknet,${data.email}',
+        this.toastCtrl.create({ 
+          message: `Bon retour sur Ticknet, ${data.email}`,
           duration: 3000
         }).present();
         
-        this.profileData = this.afDB.object(`profile/${data.uid}`)
+        this.profileData = this.afDB.object(`profile/${data.uid}`);
+        console.table(this.profileData);
 
       }
       else {

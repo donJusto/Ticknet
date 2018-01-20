@@ -18,6 +18,15 @@
 
 </ion-header>
 <ion-content padding>
+    <ion-item>
+        <ion-label>Je suis :</ion-label>
+        <ion-select [(ngModel)]="jesuis" interface="action-sheet">
+          <ion-option value="enable">Un client</ion-option>
+          <ion-option value="mute">Un représentant de compagnie</ion-option>
+          <ion-option value="mute_cont">Un contrôleur</ion-option>
+        </ion-select>
+      </ion-item>
+  
 
   <form [formGroup]="signupForm" (submit)="signupUser()" novalidate>
 
@@ -44,23 +53,6 @@
       Créer
     </button>
   </form>
-  <ion-list radio-group [(ngModel)]="relationship">
-    <br>
-    <p> Je suis un :</p>
-    <ion-item>
-      <ion-label>Client</ion-label>
-      <ion-radio value="clients" checked></ion-radio>
-    </ion-item>
-    <ion-item>
-      <ion-label>Représentant de compagnie</ion-label>
-      <ion-radio value="repCompagnie"></ion-radio>
-    </ion-item>
-    <ion-item>
-      <ion-label>Controleur</ion-label>
-      <ion-radio value="controleur"></ion-radio>
-    </ion-item>
-  </ion-list>
-
   <!-- <ion-list>
        <ion-item-sliding *ngFor="let item of TicknetItems | async">
          <ion-item>

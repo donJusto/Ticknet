@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ModalController } from 'ionic-angular';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 //Pges
 import { DepartPage } from '../depart/depart';
@@ -23,8 +24,11 @@ export class ArretsPage implements OnInit {
   public country: any;
   public test : Array<any>;
   public tic = "tac";
+  public native:any;
+  public profileRef :any;
 
-  constructor(public modalCtrl:ModalController, public navCtrl: NavController) {
+
+  constructor(private nativeStorage: NativeStorage, public modalCtrl:ModalController, public navCtrl: NavController) {
 
   }
 
@@ -41,6 +45,8 @@ export class ArretsPage implements OnInit {
     
       this.countryList = countries;
       this.loadedCountryList = countries;
+  this.native = countries;
+
       this.saveVariable();
       console.log("confirmé");
      
@@ -50,23 +56,26 @@ export class ArretsPage implements OnInit {
 
       
     });
+
+    this.nativeStorage.setItem('myCountries', {
+      native: this.native})
+  .then(
+    () => console.log('Stored item!'),
+    error => console.error('Error storing item', error)
+  );
+
+  this.nativeStorage.getItem('myCountries')
+  .then(
+    data => {
+      this.native = data.native;
+      console.log("c'est là");
+    },
+    error => console.error(error)
+  );
+
   }
-    // const countryRef: firebase.database.Reference = firebase.database().ref(`/benin/`);
-    // countryRef.on('value', testSnapshot => {
-    //   this.mytest = testSnapshot.val();
-    //   console.log('AAAAAAAAAAAAAAAAAAAAA');  
-    //   //console.log(this.mytest);
-    //   console.table(this.mytest);
-    //   // console.log(this.mytest['Abomey']);
-    // });
-  
-  // parcourir(){
-  //   for(var i=0; i < 3; i++){
-  //   for(var j=0;j<20;j++){
-  //     console.table(this.loadedCountryList[i][j]);  
-  //   }
-  // }
-  // }
+
+
   saveVariable(){
     this.navCtrl.push(ArriveePage, {
       loadedCountryList : this.loadedCountryList, 

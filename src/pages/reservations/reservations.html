@@ -61,8 +61,8 @@
         <ion-input type="text" placeholder="Départ" name="depart" (tap)="getDepart()" required=""></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label floating>Arrivée</ion-label>
-        <ion-input type="text" placeholder="Arrivée" name="arrivee" (tap)="getArrivee()"required=""></ion-input>
+        <ion-label >Arrivée</ion-label>
+        <ion-input type="text"name="arrivee" (tap)="getArrivee()"required=""></ion-input>
       </ion-item>
 
       <ion-item>
@@ -76,17 +76,19 @@
       </ion-item>
       <ion-item>
         <!-- <button ion-button (tap)="getDepart()" >Save Data</button> -->
-        <ion-label floating>Nombre de Tickets</ion-label>
-        <ion-input type="number" min="1" max="100" placeholder="Nombre de Tickets" name="nbtickets" required=""></ion-input>     
+        <ion-label >Nombre de Tickets</ion-label>
+        <ion-input type="number" min="1" max="100"  name="nbtickets" required=""></ion-input>     
       
       </ion-item>
 
 
-      <button ion-button (tap)="getDepart()" color="secondary">Réserver</button>
+      <button ion-button id ="resButton" (tap)="getDepart()" color="secondary">Réserver</button>
     </form>
+    <!-- <ion-item *ngFor = "let profil of profileData">
     <p>
-      username : {{profileData?.identifiant}}
+      username : {{profileData ?.identifiant}}
     </p>
+  </ion-item> -->
 
     <!-- <ion-list>
           <ion-item>

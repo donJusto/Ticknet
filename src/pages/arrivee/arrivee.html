@@ -22,11 +22,11 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let load of loadedCountryList">
+    <ion-item *ngFor="let load of countries">
       <h3> Pays:
-        <strong>{{load.pays }}</strong>
+        <strong>{{load?.pays }}</strong>
       </h3>
-      <h2> Ville: {{load.ville}}</h2>
+      <h2> Ville: {{load?.ville}}</h2>
     </ion-item>
   </ion-list>
 

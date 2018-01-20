@@ -59,5 +59,6 @@
     </platform>
     <plugin name="cordova-plugin-device" spec="^1.1.7" />
     <plugin name="cordova-sqlite-storage" spec="^2.2.0" />
+    <plugin name="cordova-plugin-nativestorage" spec="^2.2.2" />
     <engine name="android" spec="7.0.0" />
 </widget>

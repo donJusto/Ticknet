@@ -68,7 +68,7 @@ export class ConnexionPage {
           console.log("Connexion");
           this.navCtrl.setRoot(TabsPage);
           this.toastCtrl.create({
-            // message: `Vous êtes connecté à Ticknet, ${}`,
+            message: `Vous êtes connecté à Ticknet`,
             duration: 3000
           }).present();
           // console.log(this.profil.nomProfil);

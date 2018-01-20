@@ -54,12 +54,12 @@
         <ion-list> -->
             <ion-searchbar id= "searchbar" (ionInput)="getItems($event)"></ion-searchbar>
             <ion-list>
-                <ion-item *ngFor="let load of loadedCountryList">
-                    <h3> Pays: <strong>{{load.pays }}</strong> </h3>
-                  <h2> Ville: {{load.ville}}</h2>
-                </ion-item>
-              </ion-list>
-          <!-- <ion-item-sliding>
+              <ion-item *ngFor="let load of native">
+                  <h3> Pays: <strong>{{load.pays }}</strong> </h3>
+                <h2> Ville: {{load.ville}}</h2>
+              </ion-item>
+            </ion-list>
+      <!-- <ion-item-sliding>
               <ion-item *ngFor="let load of loadedCountryList; let i = index">
 
                   <ion-avatar item-start>
