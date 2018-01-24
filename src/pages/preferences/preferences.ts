@@ -33,6 +33,7 @@ export class PreferencesPage {
 
   favoris: Observable<any>; 
   public text: string;
+  Employee :any;
 
 
   constructor(private storage: Storage, private nativeStorage: NativeStorage, private afAuth: AngularFireAuth, private toastCtrl: ToastController, public alrtCtrl: AlertController, public menuCtrl: MenuController, public platform: Platform, public authData: AuthProvider, public navParams: NavParams, public modalCtrl: ModalController, public afDB: AngularFireDatabase, public navCtrl: NavController) {
@@ -105,6 +106,7 @@ export class PreferencesPage {
     let modal = this.modalCtrl.create(SignupPage);
     modal.present();
   }
+
 
 
 }

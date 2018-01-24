@@ -129,7 +129,7 @@ export class ReservationsPage {
   }
 
   getConnexion() {
-    let modal = this.modalCtrl.create(ProfilePage);
+    let modal = this.modalCtrl.create(ConnexionPage);
     modal.present();
   }
 
