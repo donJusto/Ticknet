@@ -1,10 +1,33 @@
+<!-- <ion-menu [content]="content">
+    <ion-header>
+      <ion-toolbar color="secondary">
+        <ion-title>Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+   
+    <ion-content>
+  
+      
+      <ion-list>
+        <button ion-item *ngFor="let p of pages" (tap)="openPage(p)">
+          {{p.title}}
+        </button>
+        <button ion-item (click)="exitAlert()">
+          Quitter application
+        </button>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  
+  <ion-nav id="nav" #content swipeBackEnable="true" [root]="rootPage"></ion-nav>
+  <ion-header>
 <ion-header>
   <ion-navbar color = "secondary" >
     <ion-title>
      Ticknet Préférences
     </ion-title>
   </ion-navbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content>
   <ion-list>
@@ -14,9 +37,15 @@
       @ionicframework
     </ion-item>
   </ion-list>
-</ion-content>
-
+  <ion-item detail-push>
+    Item with Detail Arrow
+  </ion-item>
+  <ion-item detail-push>
+    Item with Detail Arrow
+  </ion-item>
 <ion-footer color = "secondary">
+
+  
     
 </ion-footer>
     

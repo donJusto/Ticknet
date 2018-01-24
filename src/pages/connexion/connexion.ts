@@ -94,20 +94,6 @@ export class ConnexionPage {
       }
     }
 
-  // presentToast() {
-  //   let toast = this.toastCtrl.create({
-  //     message: 'User was added successfully',
-  //     duration: 3000,
-  //     position: 'top'
-  //   });
-  //   toast.onDidDismiss(() => {
-  //     console.log('Dismissed toast');
-  //   });
-  
-  //   toast.present();
-    
-  // }
-
   async login(user: User) {
     try {
       const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);

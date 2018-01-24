@@ -10,7 +10,10 @@
       <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
+ 
   <ion-content>
+
+    
     <ion-list>
       <button ion-item *ngFor="let p of pages" (tap)="openPage(p)">
         {{p.title}}
@@ -26,28 +29,24 @@
 <ion-header>
 
   <ion-navbar color="secondary">
-    <ion-title>Vos réservations</ion-title>
+    <ion-title>Ticknet Réservations</ion-title>
     <ion-buttons start>
       <button ion-button icon-only (tap)="getConnexion()">
-        <ion-icon name="md-contacts"></ion-icon>
+        <ion-icon name="md-log-in"></ion-icon>
       </button>
     </ion-buttons>
     <ion-buttons end>
-      <button ion-button color="primary" (tap)="logout()">
-        <ion-icon ios="ios-exit" md="md-exit"></ion-icon>
+      <button ion-button icon-only (tap)="logout()">
+        <ion-icon md="md-log-out" ></ion-icon>
+    
       </button>
     </ion-buttons>
 
-    <ion-buttons start>
-      <button ion-button>
-        <ion-icon name="contact"></ion-icon>
-      </button>
-    </ion-buttons>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
   </ion-navbar>
-
+   <marquee behavior="alternate" BGCOLOR="green">{{text}}</marquee>
 </ion-header>
 
 <body>
@@ -84,6 +83,7 @@
 
       <button ion-button id ="resButton" (tap)="getDepart()" color="secondary">Réserver</button>
     </form>
+    <p>Email : </p>
     <!-- <ion-item *ngFor = "let profil of profileData">
     <p>
       username : {{profileData ?.identifiant}}

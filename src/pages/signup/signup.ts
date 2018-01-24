@@ -23,7 +23,7 @@ import { EmailValidator } from '../../validators/email';
 //pages
 // import { ReservationsPage } from '../reservations/reservations';
 // import { TicketsPage } from '../tickets/tickets';
-// import { ConnexionPage } from '../connexion/connexion';
+import { ConnexionPage } from '../connexion/connexion';
 import { ProfilePage } from '../profile/profile';
 
 

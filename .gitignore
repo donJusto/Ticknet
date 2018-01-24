@@ -28,6 +28,7 @@ plugins/
 plugins/android.json
 plugins/ios.json
 www/
+gradle-3.4.1-bin.zip
 $RECYCLE.BIN/
 
 .DS_Store

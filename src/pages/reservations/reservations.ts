@@ -4,22 +4,22 @@ import firebase from 'firebase';
 import { ConnexionPage } from '../connexion/connexion';
 import { DepartPage } from '../depart/depart';
 import { ArriveePage } from '../arrivee/arrivee';
-import { AngularFireDatabase, AngularFireObject} from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { SignupPage } from '../signup/signup';
 import { Profile } from './../../models/profile.model';
 
 import { ArretsPage } from '../arrets/arrets';
 
 //import component
+import { Storage } from '@ionic/storage';
 import { NativeStorage } from '@ionic-native/native-storage';
-import { ModalController, AlertController,  } from 'ionic-angular';
+import { ModalController, AlertController, } from 'ionic-angular';
 import { Observable } from 'rxjs';
 import { AuthProvider } from '../../providers/auth/auth';
 import { Toast } from '@ionic-native/toast';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { ProfilePage } from '../profile/profile';
-import { Events } from 'ionic-angular';
 
 
 @IonicPage()
@@ -28,56 +28,64 @@ import { Events } from 'ionic-angular';
   templateUrl: 'reservations.html',
 })
 export class ReservationsPage {
+
+
+
+
   pages: Array<{ title: string, component: any }>
   public myPerson = {};
   public mybus = {};
   public myville = [];
 
-  public loadedCountryList:any;
+  public loadedCountryList: any;
   public tic: string;
 
   pays: Observable<any>;
   profileData: AngularFireObject<Profile>
   nbr: Array<number>
+  public name: string;
+  email: string;
+  photoUrl: string;
+  uid: string;
+  emailVerified: string;
+  public user: any;
+  public text: string;
 
 
 
-  constructor(private nativeStorage: NativeStorage, public events : Events, private afAuth: AngularFireAuth, private toastCtrl: ToastController, public alrtCtrl: AlertController, public menuCtrl: MenuController, public platform: Platform, public authData: AuthProvider, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public afDB: AngularFireDatabase) {
+  constructor(private storage: Storage, private nativeStorage: NativeStorage, private afAuth: AngularFireAuth, private toastCtrl: ToastController, public alrtCtrl: AlertController, public menuCtrl: MenuController, public platform: Platform, public authData: AuthProvider, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public afDB: AngularFireDatabase) {
     this.pays = afDB.list('/pays').valueChanges();
     this.pages = [
       { title: 'Connexion', component: ConnexionPage },
-      { title: 'S\'identifier', component: SignupPage }
+      { title: 'S\'identifier', component: SignupPage },
     ];
-    // this.loadedCountryList = navParams.get('loadedCountryList');
-    // this.tic = navParams.get('tic');
-    // console.log(this.tic);
-    this.events.subscribe('ville:created', (ville) => {
-      // user and time are the same arguments passed in `events.publish(user, time)`
-      console.log('Welcome', ville);
-    });
   }
 
   ionViewDidLoad() {
     this.afAuth.authState.take(1).subscribe(data => {
       if (data && data.email && data.uid) {
-        this.toastCtrl.create({ 
+        this.toastCtrl.create({
           message: `Bienvenue sur Ticknet, ${data.email}`,
           duration: 4000,
           position: 'top',
           showCloseButton: true,
-          closeButtonText	: 'Fermer',
-          cssClass : 'welcome'
+          closeButtonText: 'Fermer',
+          cssClass: 'welcome'
 
         }).present();
-        
+
         this.profileData = this.afDB.object(`profile/${data.uid}`);
         // console.table(this.profileData);
 
       }
       else {
         this.toastCtrl.create({
-          message: 'Détails d\'authentification introuvables',
-          duration: 3000
+          message: 'Vous n\'êtes pas connecté, Connectez-vous à Ticknet! ',
+          duration: 4000,
+          position: 'top',
+          showCloseButton: true,
+          closeButtonText: 'Fermer',
+
         }).present();
 
       }
@@ -99,15 +107,29 @@ export class ReservationsPage {
       // console.log(Niger[1].ville);
 
     });
+    this.user = firebase.auth().currentUser;
+    if (this.user != null) {
+      this.name = this.user.displayName;
+      this.text = "Bienveue à Ticknet, " + this.user.email;
+      this.storage.set('myUser', this.text);
+      this.storage.get('myUser').then((data) => {
+        this.text = data;
+        console.log(this.text);
+      });
+
+    }
+    else {
+      this.storage.set('myUser', this.text = "Connectez-vous à Ticknet !");
+      this.storage.get('myUser').then((data) => {
+        this.text = data
+      });
+      console.log(this.text);
+    }
 
   }
 
-
-
-
-
   getConnexion() {
-    let modal = this.modalCtrl.create(ConnexionPage);
+    let modal = this.modalCtrl.create(ProfilePage);
     modal.present();
   }
 
@@ -131,7 +153,33 @@ export class ReservationsPage {
 
   }
   logout() {
-    this.authData.logoutUser();
+    const authObserver = this.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.afAuth.auth.signOut();
+        console.log("signout");
+        this.toastCtrl.create({
+          message: 'Déconnexion réussie',
+          duration: 4000,
+          position: 'top',
+          showCloseButton: true,
+          closeButtonText: 'Fermer',
+
+        }).present();
+      } else {
+        this.toastCtrl.create({
+          message: 'Vous êtes déjà déconnecté',
+          duration: 4000,
+          position: 'top',
+          showCloseButton: true,
+          closeButtonText: 'Fermer',
+
+        }).present();
+      }
+    });
+
+    this.text = "Connectez-vous à Ticknet !";
+
+
   }
 
   exitAlert() {
@@ -145,7 +193,7 @@ export class ReservationsPage {
           handler: () => {
             console.log('Cancel clicked');
           }
-        },
+        }, 
         {
           text: 'Oui',
           handler: () => {
@@ -163,16 +211,13 @@ export class ReservationsPage {
 
   }
   getConnexionPage() {
-    // let modal = this.modalCtrl.create(ConnexionPage);
-    // modal.present();
-    // this.menuCtrl.enable(false, signupMenu);  //disabling all other menus
-    // this.menuCtrl.enable(false, page3menu);
-    // this.menuCtrl.enable(true, page1menu);
     this.menuCtrl.open('ConnexionPage');
   }
   getSignupPage() {
     let modal = this.modalCtrl.create(SignupPage);
     modal.present();
   }
+
+
 
 }

@@ -3,4 +3,4 @@ export interface Profile{
     nom: string;
     prenom: string;
     
-} 
+}   
