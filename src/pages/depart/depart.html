@@ -22,7 +22,7 @@
 
 <ion-content padding>
   <ion-searchbar id="searchbar" (ionInput)="getItems($event)"></ion-searchbar>
-  <ion-list reorder="true">
+  <ion-list>
     <ion-item-sliding>
 
       <ion-item (tap)="ajouterDepart()" *ngFor="let load of loadedCountryList">
