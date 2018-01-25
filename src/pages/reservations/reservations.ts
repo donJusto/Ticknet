@@ -29,9 +29,6 @@ import { ProfilePage } from '../profile/profile';
 })
 export class ReservationsPage {
 
-
-
-
   pages: Array<{ title: string, component: any }>
   public myPerson = {};
   public mybus = {};
