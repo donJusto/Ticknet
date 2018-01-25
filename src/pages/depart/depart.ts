@@ -1,11 +1,18 @@
 import { Component,OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 import firebase from 'firebase';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { NativeStorage } from '@ionic-native/native-storage';
+import { Storage } from '@ionic/storage';
+
+
+//Providers
+import { ListevilleProvider } from '../../providers/listeville/listeville';
 
 import { ProfilePage } from '../profile/profile';
 import { Profile } from '../../models/profile.model';
+import { ReservationsPage } from '../reservations/reservations';
 /**
  * Generated class for the DepartPage page.
  *
@@ -18,29 +25,29 @@ import { Profile } from '../../models/profile.model';
   selector: 'page-depart',
   templateUrl: 'depart.html',
 })
-export class DepartPage implements OnInit{
+export class DepartPage {
+  public profile = {} as ProfilePage;
 
-  paysObservable: Observable<any[]>;
+  public ville: any;
+  public rechercheVille: any;  
+  public user : any;
+  public text : any;
+  public profilModel = {} as Profile;
 
-  public countryList:Array<any>;
-  public loadedCountryList:any;
-  public countryRef:firebase.database.Reference;
-  public mytest = {};
-  profile = {} as Profile;
   
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams,private afDb: AngularFireDatabase) {
+  constructor(private storage: Storage,public listeVille: ListevilleProvider,private nativeStorage: NativeStorage, public events: Events, public navCtrl: NavController, public navParams: NavParams,private afDb: AngularFireDatabase) {
 
     
   }
 
-  initializeItems(): void {
-    this.countryList = this.loadedCountryList;
-  }
+ 
+//enreigistrer localement le choix d'une ville de départ
+
+
 
   getItems(searchbar) {
     // Reset items back to all of the items
-    this.initializeItems();
+    this.rechercheVille = this.ville;
   
     // set q to the value of the searchbar
     var q = searchbar.srcElement.value;
@@ -51,7 +58,7 @@ export class DepartPage implements OnInit{
       return;
     }
   
-    this.countryList = this.countryList.filter((v) => {
+    this.rechercheVille = this.rechercheVille.filter((v) => {
       if(v.name && q) {
         if (v.name.toLowerCase().indexOf(q.toLowerCase()) > -1) {
           return true;
@@ -60,51 +67,32 @@ export class DepartPage implements OnInit{
       }
     });
   
-    console.log(q, this.countryList.length);
+    console.log(q, this.rechercheVille.length);
   
   }
 
   ionViewDidLoad() {
-    console.log(this.profile.nom);
-    this.countryRef = firebase.database().ref('/pays');    
-    this.countryRef.on('value', countryList => {
-      let countries = [];
-      countryList.forEach( country => {
-        countries.push(country.val());
-        return false;
-      });
+    //Appeler liste de ville
+    this.ville = this.listeVille; 
+
+    //stocker le user texte
+
+    this.storage.get('myUser').then((data) => {
+      this.text = data;
+      this.user = firebase.auth().currentUser;
+      if (this.user != null) {
+        this.text = this.text ;
     
-      this.countryList = countries;
-      this.loadedCountryList = countries;
-      // console.table("test"+this.loadedCountryList[0]);
-      
-      
-    });
-  //   const countryRef: firebase.database.Reference = firebase.database().ref(`/benin/`);
-  //   countryRef.on('value', testSnapshot => {
-  //     this.mytest = testSnapshot.val();
-  //     console.log('AAAAAAAAAAAAAAAAAAAAA');  
-  //     //console.log(this.mytest);
-  //     console.table(this.mytest);
-  //     console.log(this.mytest['Abomey']);
-  //   });
-  }
-
-
+      }
+      else {
+          this.text = "Connectez-vous à Ticknet !"
+      }
+    
+  })
+}
+  
   closeModal() {
     this.navCtrl.pop();
   }
-  ngOnInit() {
-    
-    this.paysObservable = this.getPays('/benin/Cotonou');
-    
-    }
-    
-    getPays(listPath): Observable<any[]> {
-    
-    return this.afDb.list(listPath).valueChanges();
-    
-    }
-
 
 }

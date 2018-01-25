@@ -1,4 +1,19 @@
 page-reservations {
+    
     padding-top: 2em;
 
+    #resButton{
+        margin-top : 18px;
+        left : 10px;
+    }
+    #welcome{
+        background-color: steelblue;
+    }
+
+    #email{
+        padding-top: 1px;
+        // background-color: steelblue;
+        // background:red;
+        color: rgb(8, 162, 111);
+    }
 }

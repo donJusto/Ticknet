@@ -68,7 +68,7 @@ export class ConnexionPage {
           console.log("Connexion");
           this.navCtrl.setRoot(TabsPage);
           this.toastCtrl.create({
-            // message: `Vous êtes connecté à Ticknet, ${}`,
+            message: `Vous êtes connecté à Ticknet`,
             duration: 3000
           }).present();
           // console.log(this.profil.nomProfil);
@@ -93,20 +93,6 @@ export class ConnexionPage {
         this.loading.present();
       }
     }
-
-  // presentToast() {
-  //   let toast = this.toastCtrl.create({
-  //     message: 'User was added successfully',
-  //     duration: 3000,
-  //     position: 'top'
-  //   });
-  //   toast.onDidDismiss(() => {
-  //     console.log('Dismissed toast');
-  //   });
-  
-  //   toast.present();
-    
-  // }
 
   async login(user: User) {
     try {

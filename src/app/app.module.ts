@@ -20,7 +20,11 @@ import { ConnexionPage } from '../pages/connexion/connexion';
 import { SignupPage } from '../pages/signup/signup';
 import { ReinitialisermdpPage } from '../pages/reinitialisermdp/reinitialisermdp';
 import { ProfilePage } from '../pages/profile/profile';
+<<<<<<< HEAD
 import { ShareService } from '../services/share.service';
+=======
+import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
+>>>>>>> dimension
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -33,7 +37,11 @@ import { HttpModule } from '@angular/http';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+
+//Provider
 import { AuthProvider } from '../providers/auth/auth';
+import { ListevilleProvider } from '../providers/listeville/listeville';
+import { UserProfileProvider } from '../providers/user-profile/user-profile';
 // import { Firebase } from '../config/firebase';
 // import { FIREBASE_CREDENTIALS } from "./firebase.credentials";
 
@@ -98,6 +106,8 @@ const firebaseConfig = {
     AuthProvider,
     ShareService,
     NativeStorage,
+    ListevilleProvider,
+    UserProfileProvider,
     
     
   

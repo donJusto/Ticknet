@@ -16,11 +16,13 @@
     </ion-buttons>
 
   </ion-navbar>
+  <marquee behavior="alternate" BGCOLOR="green">{{text}}</marquee>
 
 </ion-header>
 
 
 <ion-content padding>
+<<<<<<< HEAD
   <ion-list>
     <!-- <ion-item *ngFor="let load of serviceData">
       <h3> Pays:
@@ -30,6 +32,18 @@
     </ion-item> -->
   </ion-list>
 
+=======
+    <ion-searchbar id= "searchbar" (ionInput)="getItems($event)"></ion-searchbar>
+    <ion-list reorder="true">
+      <ion-item *ngFor="let load of ville">
+          <ion-avatar item-start>
+              <img src="imgs/car.png">
+            </ion-avatar>
+          <h3> Pays: <strong>{{load.pays }}</strong> </h3>
+        <h3> Département: {{load.departement}} <br>  Ville: {{load.ville}}</h3>
+      </ion-item>
+    </ion-list>
+>>>>>>> dimension
 </ion-content>
 <ion-footer color="secondary">
 

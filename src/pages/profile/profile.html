@@ -16,18 +16,17 @@
 <ion-content padding>
   <ion-item>
     <ion-label floating>Identifiant</ion-label>
-    <ion-input [(ngModel)]="profile.identifiant" ></ion-input>
+    <ion-input [(ngModel)]="profilModel.identifiant" ></ion-input>
 </ion-item>
 <ion-item>
     <ion-label floating>Nom</ion-label>
-    <ion-input [(ngModel)]="profile.nom" ></ion-input>
+    <ion-input [(ngModel)]="profilModel.nom" ></ion-input>
 </ion-item>
 <ion-item>
     <ion-label floating>Prénom</ion-label>
-    <ion-input [(ngModel)]="profile.prenom" ></ion-input>
+    <ion-input [(ngModel)]="profilModel.prenom" ></ion-input>
 </ion-item>
-<button color="secondary" ion-button (tap)="creerProfile()">Créer Profil</button>
-<button color="secondary" ion-button (tap)="creerProfile()">Get Profil</button>
+<button color="secondary" ion-button (tap)="creerProfil()">Créer Profil</button> 
 
 
 </ion-content>

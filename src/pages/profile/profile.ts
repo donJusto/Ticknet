@@ -11,6 +11,10 @@ import { NativeStorage } from '@ionic-native/native-storage';
 import { ConnexionPage } from '../connexion/connexion';
 import { Storage } from '@ionic/storage';
 import { Events } from 'ionic-angular';
+import { ReservationsPage } from '../reservations/reservations';
+//Providers
+import { UserProfileProvider } from '../../providers/user-profile/user-profile';
+
 /**
  * Generated class for the ProfilePage page.
  *
@@ -24,70 +28,50 @@ import { Events } from 'ionic-angular';
 })
 export class ProfilePage {
 
-  profile = {} as Profile;
-  nom: string;
-  prenom: string;
-  identifiant: string;
-  nomNatif: string;
-  prenomNatif: string;
-  identifiantNatif: string;
+  public monProfil: any;
+  public profilModel = {} as Profile;
 
-  constructor(public events: Events, private storage: Storage, private nativeStorage: NativeStorage, public afDB: AngularFireDatabase, public navCtrl: NavController, public navParams: NavParams, private afAuth: AngularFireAuth) {
+  constructor(public userProfile: UserProfileProvider, public events: Events, private storage: Storage, private nativeStorage: NativeStorage, public afDB: AngularFireDatabase, public navCtrl: NavController, public navParams: NavParams, private afAuth: AngularFireAuth) {
   }
+
+
+
+
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfilePage');
+
+    // console.log('ionViewDidLoad ProfilePage');
+    // console.log(this.profilModel.identifiant);
+
+
+    //Pour la création d'un profil
+
+    //     this.userProfile.creerProfile();
+    // console.log(this.userProfile.profil.identifiant);
+    // // console.log('User created!')
+    // this.events.publish ('user:created','this.profile.nom'  );
+    // this.storage.set('this.profile.nom', 'Max');
+    // this.storeUser();
+
+    // this.getUser();
   }
-  creerProfile() {
+
+  creerProfil() {
     this.afAuth.authState.take(1).subscribe(auth => {
-      this.afDB.list(`profile/${auth.uid}`).push(this.profile)
-        .then(() => this.navCtrl.setRoot(ConnexionPage));
-      console.log(this.profile.nom);
-      console.log('User created!')
-      // this.events.publish ('user:created','this.profile.nom'  );
-      // this.storage.set('this.profile.nom', 'Max');
-      this.storeUser();
-    
-      // this.getUser();
+      this.afDB.list(`profile/${auth.uid}`).push(this.profilModel)
+        .then(() => this.navCtrl.setRoot(ReservationsPage));
+      this.storage.set('myProfile', this.profilModel.identifiant);
+      this.storage.get('myProfile').then((data) => {
+        this.profilModel.identifiant = data;
+
+
+        console.log(this.profilModel.identifiant);
+        console.log('User created!');
+
+      })
+
     })
-
   }
-  public storeUser() {
-    this.nativeStorage.setItem('userProfile', {
-      nomNatif : this.profile.nom,
-      identifiantNatif: this.profile.identifiant,
-      prenomNatif: this.profile.prenom,
-    })
-      .then(
-      () => console.log('Stored item!'),
-      error => console.error('Error storing item', error)
-      );
-
-    }
-    public getUser(){
-
-    this.nativeStorage.getItem('userProfile')
-      .then(
-      data => {
-        this.nom = data.nom;
-        this.prenom = data.prenom;
-        this.identifiant = data.identifiant;
-        
-      }
-      ,
-      error => console.error(error)
-      );
-    }
-
-  }
-  // var user = firebase.auth().currentUser;
-  // if (user != null {
-  //   $scope.user = {
-  //     name: user.displayName,
-  //     email: user.email,
-  //     photoURL: user.PhotoURL
-  //   }
-  // }
 
 
-
+}
