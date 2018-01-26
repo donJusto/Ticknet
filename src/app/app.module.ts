@@ -20,12 +20,8 @@ import { ConnexionPage } from '../pages/connexion/connexion';
 import { SignupPage } from '../pages/signup/signup';
 import { ReinitialisermdpPage } from '../pages/reinitialisermdp/reinitialisermdp';
 import { ProfilePage } from '../pages/profile/profile';
-<<<<<<< HEAD
 import { ShareService } from '../services/share.service';
-=======
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
->>>>>>> dimension
-
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -44,6 +40,9 @@ import { ListevilleProvider } from '../providers/listeville/listeville';
 import { UserProfileProvider } from '../providers/user-profile/user-profile';
 // import { Firebase } from '../config/firebase';
 // import { FIREBASE_CREDENTIALS } from "./firebase.credentials";
+
+
+import { HomePage } from '../pages/home/home';
 
 const firebaseConfig = {
   apiKey: "AIzaSyAS36WyHb4X8iJ62gzyX2omU1i-OLGPElw",
@@ -69,6 +68,7 @@ const firebaseConfig = {
     SignupPage,
     ReinitialisermdpPage,
     ProfilePage,
+    HomePage
   ],
 
   imports: [
@@ -96,7 +96,7 @@ const firebaseConfig = {
     SignupPage,
     ReinitialisermdpPage,
     ProfilePage,
-    
+    HomePage
   ],
   providers: [
     StatusBar,
@@ -108,9 +108,6 @@ const firebaseConfig = {
     NativeStorage,
     ListevilleProvider,
     UserProfileProvider,
-    
-    
-  
   ]
 })
 export class AppModule {}

@@ -14,7 +14,8 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { Toast } from '@ionic-native/toast';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { IonicPage, NavController, NavParams, Platform, MenuController } from 'ionic-angular';
+import { NavController, NavParams, Platform, MenuController } from 'ionic-angular';
+import { HomePage } from '../home/home';
 
 @Component({
   templateUrl: 'tabs.html',
@@ -24,11 +25,12 @@ export class TabsPage {
   tab2Root = TicketsPage;
   tab3Root = ArretsPage;
   tab4Root = PreferencesPage;
+  tab5Root = HomePage;
 
   constructor(private afAuth: AngularFireAuth, private toastCtrl: ToastController, public alrtCtrl: AlertController, public platform: Platform, public authData: AuthProvider, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public afDB: AngularFireDatabase) {
 
   }
-  exitAlert() {
+  exitAlert() { 
     let alert = this.alrtCtrl.create({
       title: 'Confirmer',
       message: 'Vous nous quittez?',

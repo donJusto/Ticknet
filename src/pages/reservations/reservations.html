@@ -1,31 +1,3 @@
-<!--
-  Generated template for the ReservationPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-menu [content]="content">
-  <ion-header>
-    <ion-toolbar color="secondary">
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
- 
-  <ion-content>
-
-    
-    <ion-list>
-      <button ion-item *ngFor="let p of pages" (tap)="openPage(p)">
-        {{p.title}}
-      </button>
-      <button ion-item (click)="exitAlert()">
-        Quitter application
-      </button>
-    </ion-list>
-  </ion-content>
-</ion-menu>
-
-<ion-nav id="nav" #content swipeBackEnable="true" [root]="rootPage"></ion-nav>
 <ion-header>
 
   <ion-navbar color="secondary">
@@ -37,8 +9,7 @@
     </ion-buttons>
     <ion-buttons end>
       <button ion-button icon-only (tap)="logout()">
-        <ion-icon md="md-log-out" ></ion-icon>
-    
+        <ion-icon md="md-log-out"></ion-icon>
       </button>
     </ion-buttons>
 
@@ -46,65 +17,35 @@
       <ion-icon name="menu"></ion-icon>
     </button>
   </ion-navbar>
-   <marquee behavior="alternate" BGCOLOR="green">{{text}}</marquee>
+  <marquee behavior="alternate" BGCOLOR="green">{{text}}</marquee>
 </ion-header>
 
-<body>
+<ion-content padding id="depart" color="secondary">
 
+  <form>
+    <ion-item>
+      <ion-label floating>Départ</ion-label>
+      <ion-input type="text" placeholder="Départ" [(ngModel)]="ville" name="depart" (tap)="getDepart()" required=""></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Arrivée</ion-label>
+      <ion-input type="text" name="arrivee" (tap)="getArrivee()" required=""></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Date Départ</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" min="2016" max="2050-12-31" name="date" required=""></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Date Arrivée</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" min="2016" max="2050-12-31" name="date" required=""></ion-datetime>
 
-  <ion-content padding id="depart" color="secondary">
+    </ion-item>
+    <ion-item>
+      <!-- <button ion-button (tap)="getDepart()" >Save Data</button> -->
+      <ion-label>Nombre de Tickets</ion-label>
+      <ion-input type="number" min="1" max="100" name="nbtickets" required=""></ion-input>
 
-    <form>
-      <ion-item>
-        <ion-label floating>Départ</ion-label>
-        <ion-input type="text" placeholder="Départ" [(ngModel)]="ville" name="depart" (tap)="getDepart()" required=""></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label >Arrivée</ion-label>
-        <ion-input type="text"name="arrivee" (tap)="getArrivee()"required=""></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Date Départ</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY" min="2016" max="2050-12-31" name="date" required=""></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label>Date Arrivée</ion-label>
-        <ion-datetime displayFormat="DD/MM/YYYY" min="2016" max="2050-12-31" name="date" required=""></ion-datetime>
-
-      </ion-item>
-      <ion-item>
-        <!-- <button ion-button (tap)="getDepart()" >Save Data</button> -->
-        <ion-label >Nombre de Tickets</ion-label>
-        <ion-input type="number" min="1" max="100"  name="nbtickets" required=""></ion-input>     
-      
-      </ion-item>
-
-
-      <button ion-button id ="resButton" (tap)="getDepart()" color="secondary">Réserver</button>
-    </form>
-    <!-- <ion-item *ngFor = "let profil of profileData">
-    <p>
-      username : {{profileData ?.identifiant}}
-    </p>
-  </ion-item> -->
-
-    <!-- <ion-list>
-          <ion-item>
-            <ion-label fixed>First Name</ion-label>
-            <ion-input type="text" [(ngModel)]="firstName"></ion-input>
-          </ion-item>
-      
-          <ion-item>
-            <ion-label fixed>Last Name</ion-label>
-            <ion-input type="text" [(ngModel)]="lastName"></ion-input>
-          </ion-item>
-        </ion-list>
-      
-        <button ion-button color ="secondary" (tap)="createPerson(firstName, lastName)">
-          Create Person
-        </button> -->
-
-
-  </ion-content>
-</body>
+    </ion-item>
+    <button ion-button id="resButton" (tap)="getDepart()" color="secondary">Réserver</button>
+  </form>
+</ion-content>

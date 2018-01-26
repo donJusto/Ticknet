@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform, MenuController } from 'ionic-angular';
 import firebase from 'firebase';
 import { ConnexionPage } from '../connexion/connexion';
@@ -20,6 +20,7 @@ import { Toast } from '@ionic-native/toast';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { ProfilePage } from '../profile/profile';
+import { ListevilleProvider } from '../../providers/listeville/listeville';
 
 
 @IonicPage()
@@ -27,10 +28,7 @@ import { ProfilePage } from '../profile/profile';
   selector: 'page-reservations',
   templateUrl: 'reservations.html',
 })
-export class ReservationsPage {
-
-
-
+export class ReservationsPage implements OnInit {
 
   pages: Array<{ title: string, component: any }>
   public myPerson = {};
@@ -50,15 +48,34 @@ export class ReservationsPage {
   emailVerified: string;
   public user: any;
   public text: string;
+  
+  arrivTEST: string;
+  public villeArrivee: any;
 
+  constructor(private storage: Storage, 
+    private nativeStorage: NativeStorage, 
+    private afAuth: AngularFireAuth, 
+    private toastCtrl: ToastController, 
+    public alertCtrl: AlertController, 
+    public menuCtrl: MenuController, 
+    public platform: Platform, 
+    public authData: AuthProvider, 
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public modalCtrl: ModalController, 
+    public afDB: AngularFireDatabase,
+    public listeVilleProvider: ListevilleProvider) 
+    {
+    // this.pays = afDB.list('/pays').valueChanges();
+    // this.pages = [
+    //   { title: 'Connexion', component: ConnexionPage },
+    //   { title: 'S\'identifier', component: SignupPage },
+    // ];
+  }
 
-
-  constructor(private storage: Storage, private nativeStorage: NativeStorage, private afAuth: AngularFireAuth, private toastCtrl: ToastController, public alrtCtrl: AlertController, public menuCtrl: MenuController, public platform: Platform, public authData: AuthProvider, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public afDB: AngularFireDatabase) {
-    this.pays = afDB.list('/pays').valueChanges();
-    this.pages = [
-      { title: 'Connexion', component: ConnexionPage },
-      { title: 'S\'identifier', component: SignupPage },
-    ];
+  ngOnInit() {
+    console.log(this.listeVilleProvider.countryList); 
+    //console.log(this.villeArrivee);
   }
 
   ionViewDidLoad() {
@@ -85,7 +102,6 @@ export class ReservationsPage {
           position: 'top',
           showCloseButton: true,
           closeButtonText: 'Fermer',
-
         }).present();
 
       }
@@ -183,7 +199,7 @@ export class ReservationsPage {
   }
 
   exitAlert() {
-    let alert = this.alrtCtrl.create({
+    let alert = this.alertCtrl.create({
       title: 'Confirmer',
       message: 'Vous nous quittez?',
       buttons: [

@@ -12,7 +12,7 @@ import { Profile } from '../../models/profile.model';
 
 import { Component } from '@angular/core';
 import { NativeStorage } from '@ionic-native/native-storage';
-import { ReservationsPage } from '/home/juste/module/src/pages/reservations/reservations';
+// import { ReservationsPage } from '/home/juste/module/src/pages/reservations/reservations';
 import { Storage } from '@ionic/storage';
 import { Events } from 'ionic-angular';
 /*

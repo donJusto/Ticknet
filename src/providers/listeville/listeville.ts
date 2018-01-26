@@ -25,8 +25,7 @@ export class ListevilleProvider {
 
 //Provider pour importer la liste des villes de Firebase
   constructor(public http: HttpClient) {
-    console.log('Hello ListevilleProvider Provider');
-    console.log('ionViewDidLoad DepartPage');
+    console.log('Hello ListevilleProvider');
     this.countryRef = firebase.database().ref('pays');    
     this.countryRef.on('value', countryList => {
       let countries = [];
@@ -37,8 +36,8 @@ export class ListevilleProvider {
     
       this.countryList = countries;
       this.loadedCountryList = countries;
-  this.native = countries;
-  console.log("test provider");
+      this.native = countries;
+      console.log("test provider");
 
   //     this.saveVariable();
   //     console.log("confirmé");
