@@ -30,7 +30,7 @@ export class TabsPage {
   constructor(private afAuth: AngularFireAuth, private toastCtrl: ToastController, public alrtCtrl: AlertController, public platform: Platform, public authData: AuthProvider, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public afDB: AngularFireDatabase) {
 
   }
-  exitAlert() {
+  exitAlert() { 
     let alert = this.alrtCtrl.create({
       title: 'Confirmer',
       message: 'Vous nous quittez?',

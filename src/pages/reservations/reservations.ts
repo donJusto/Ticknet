@@ -78,39 +78,6 @@ export class ReservationsPage implements OnInit {
     //console.log(this.villeArrivee);
   }
 
-  showArriveAlert() {
-    let alert = this.alertCtrl.create();
-    alert.setTitle('Arrivées dispo');
-    
-    // this.villeArrivee.forEach(item => {
-    //   alert.addInput({
-    //     type: 'radio',
-    //     label: item.ville + ' - ' + item.pays,
-    //     value: item.ville,
-    //     checked: false
-    //   });
-    // });
-
-    // alert.addInput({
-    //   type: 'radio',
-    //   label: 'Blue',
-    //   value: 'blue',
-    //   checked: true
-    // });
-
-    alert.addButton('Cancel');
-    alert.addButton({
-      text: 'OK',
-      handler: data => {
-        //this.testRadioOpen = false;
-        this.arrivTEST = data;
-        console.log(data + ' est son choix');
-      }
-    });
-
-    alert.present();
-  }
-
   ionViewDidLoad() {
     this.afAuth.authState.take(1).subscribe(data => {
       if (data && data.email && data.uid) {
@@ -135,7 +102,6 @@ export class ReservationsPage implements OnInit {
           position: 'top',
           showCloseButton: true,
           closeButtonText: 'Fermer',
-
         }).present();
 
       }
