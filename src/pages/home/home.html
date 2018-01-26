@@ -6,6 +6,28 @@
 -->
 <ion-header>
 
+  <ion-navbar color="secondary">
+    <ion-title>Ticknet Réservations</ion-title>
+    <ion-buttons start>
+      <button ion-button icon-only (tap)="getConnexion()">
+        <ion-icon name="md-log-in"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button icon-only (tap)="logout()">
+        <ion-icon md="md-log-out"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+  <marquee behavior="alternate" BGCOLOR="green">{{text}}</marquee>
+</ion-header>
+
+<ion-header>
+
   <ion-navbar color='secondary'>
     <ion-title text-center>NEW RESERVATION PAGE</ion-title>
   </ion-navbar>

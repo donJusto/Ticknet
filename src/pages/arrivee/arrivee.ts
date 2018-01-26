@@ -36,7 +36,7 @@ import { ListevilleProvider } from '../../providers/listeville/listeville';
   selector: 'page-arrivee',
   templateUrl: 'arrivee.html',
 })
-export class ArriveePage implements OnInit{
+export class ArriveePage {
 
   public ville: any;
   nbr: Array<number>
@@ -48,24 +48,37 @@ export class ArriveePage implements OnInit{
   public user: any;
   public text: string;
 
-  constructor(private storage: Storage, 
-    private nativeStorage: NativeStorage, 
-    private afAuth: AngularFireAuth, 
-    private toastCtrl: ToastController, 
-    public alrtCtrl: AlertController,  
-    public authData: AuthProvider,  
-    public modalCtrl: ModalController, 
-    public afDB: AngularFireDatabase,
-    public listeVille: ListevilleProvider,
-    public navCtrl: NavController, 
-    public navParams: NavParams) {
+  
+
+  constructor(private storage: Storage, private nativeStorage: NativeStorage, private afAuth: AngularFireAuth, private toastCtrl: ToastController, public alrtCtrl: AlertController,  public authData: AuthProvider,  public modalCtrl: ModalController, public afDB: AngularFireDatabase,public listeVille: ListevilleProvider,public navCtrl: NavController, public navParams: NavParams) {
 
   }
 
     
-  ngOnInit() {
+  ionViewDidLoad() {
+
+    console.log('ionViewDidLoad ArriveePage');
     this.ville = this.listeVille.countryList; 
-    console.log(this.ville)
+
+    this.user = firebase.auth().currentUser;
+    if (this.user != null) {
+      this.name = this.user.displayName;
+      this.text = "Bienveue à Ticknet, " + this.user.email;
+      this.storage.set('myUser', this.text);
+      this.storage.get('myUser').then((data) => {
+        this.text = data;
+        console.log(this.text);
+      });
+
+    }
+    else {
+      this.storage.set('myUser', this.text = "Connectez-vous à Ticknet !");
+      this.storage.get('myUser').then((data) => {
+        this.text = data
+      });
+      console.log(this.text);
+    }
+
   }
 
 
