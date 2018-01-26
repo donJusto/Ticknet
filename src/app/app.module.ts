@@ -41,6 +41,9 @@ import { UserProfileProvider } from '../providers/user-profile/user-profile';
 // import { Firebase } from '../config/firebase';
 // import { FIREBASE_CREDENTIALS } from "./firebase.credentials";
 
+
+import { HomePage } from '../pages/home/home';
+
 const firebaseConfig = {
   apiKey: "AIzaSyAS36WyHb4X8iJ62gzyX2omU1i-OLGPElw",
   authDomain: "tickness-6aea8.firebaseapp.com",
@@ -65,6 +68,7 @@ const firebaseConfig = {
     SignupPage,
     ReinitialisermdpPage,
     ProfilePage,
+    HomePage
   ],
 
   imports: [
@@ -92,7 +96,7 @@ const firebaseConfig = {
     SignupPage,
     ReinitialisermdpPage,
     ProfilePage,
-    
+    HomePage
   ],
   providers: [
     StatusBar,
