@@ -10,6 +10,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { ArretsPage } from '../pages/arrets/arrets';
 import { ConnexionPage } from '../pages/connexion/connexion';
 import { ProfilePage } from '../pages/profile/profile';
+import { HomePage } from '../pages/home/home';
 
 @Component({
   templateUrl: 'app.html'

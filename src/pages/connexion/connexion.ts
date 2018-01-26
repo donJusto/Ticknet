@@ -17,6 +17,7 @@ import { TabsPage } from '../tabs/tabs';
 import { ReinitialisermdpPage } from '../reinitialisermdp/reinitialisermdp';
 // import { TicketsPage } from '../tickets/tickets';
 import { ProfilePage } from '../profile/profile';
+import { TicketsPage } from '../tickets/tickets';
 // import { Profile } from '../../models/profile.model';
 
 @IonicPage({ name: 'connexion'})
@@ -96,9 +97,12 @@ export class ConnexionPage {
 
   async login(user: User) {
     try {
-      const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
+      const result = await this.afAuth.auth.signInWithEmailAndPassword(
+        user.email, 
+        user.password
+      );
       if (result) {
-        this.navCtrl.setRoot('TicketsPage');
+        this.navCtrl.setRoot(TicketsPage);
       }  
     }
     catch (e) {

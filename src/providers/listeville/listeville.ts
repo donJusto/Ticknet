@@ -14,12 +14,9 @@ import { AngularFireDatabase } from 'angularfire2/database';
 @Injectable()
 export class ListevilleProvider {
   public countryRef:firebase.database.Reference;
-  public mytest = {};
   public countryList:Array<any>;
   public loadedCountryList:any;
   public country: any;
-  public test : Array<any>;
-  public tic = "tac";
   public native:any;
   public profileRef :any;
 

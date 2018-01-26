@@ -1,13 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, ModalController, NavController, AlertController, NavParams } from 'ionic-angular';
+import {
+  IonicPage,
+  ModalController,
+  MenuController,
+  NavController,
+  AlertController,
+  Platform,
+  NavParams
+} from 'ionic-angular';
 import { ListevilleProvider } from '../../providers/listeville/listeville';
 import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs';
-import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
+import {
+  AngularFireDatabase,
+  AngularFireObject
+} from 'angularfire2/database';
 import { Profile } from './../../models/profile.model';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { AngularFireAuth } from 'angularfire2/auth';
 import firebase from 'firebase';
+
+
+//Pages
+import { DepartPage } from '../depart/depart';
+import { ArriveePage } from '../arrivee/arrivee';
+
+import { ConnexionPage } from '../connexion/connexion';
+import { SignupPage } from '../signup/signup';
+
 
 /**
  * Generated class for the HomePage page.
@@ -16,14 +36,14 @@ import firebase from 'firebase';
  * Ionic pages and navigation.
  */
 
-// @IonicPage()
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
 })
-export class HomePage implements OnInit{
-  
-  villes : any;
+export class HomePage implements OnInit {
+
+  villes: any;
   arrivee: string;
   depart: string;
   pays: Observable<any>;
@@ -36,24 +56,40 @@ export class HomePage implements OnInit{
   emailVerified: string;
   public user: any;
   public text: string;
-  
+  public arrive: string;
+
   arrivTEST: string;
   public villeArrivee: any;
+  pages: Array<{ title: string, component: any }>
+
 
 
   constructor(public navCtrl: NavController,
-    public alertCtrl: AlertController, 
+    public alertCtrl: AlertController,
     public navParams: NavParams,
     public villeProvider: ListevilleProvider,
     public modalCtrl: ModalController,
-    private afAuth: AngularFireAuth, 
-    private toastCtrl: ToastController, 
-    private storage: Storage, 
+    private afAuth: AngularFireAuth,
+    private toastCtrl: ToastController,
+    private storage: Storage,
     public afDB: AngularFireDatabase,
-  ) { }
+    public menuCtrl: MenuController,
+    public platform: Platform,
+
+  ) {
+
+    this.pages = [
+      { title: 'Connexion', component: ConnexionPage },
+      { title: 'S\'identifier', component: SignupPage },
+    ];
+    console.log("test")
+
+  }
 
   ngOnInit() {
     this.villes = this.villeProvider.countryList;
+    console.table( this.villes)
+
   }
 
   reserver() {
@@ -63,9 +99,10 @@ export class HomePage implements OnInit{
   showDepartAlert() {
     let alert = this.alertCtrl.create();
     alert.setTitle('Départ');
-    
+    console.log("je me teste");
+
     this.villes.forEach(item => {
-      
+
       if (item.ville == this.depart) {
         alert.addInput({
           type: 'radio',
@@ -74,7 +111,7 @@ export class HomePage implements OnInit{
           checked: true
         })
       }
-      else  {
+      else {
         alert.addInput({
           type: 'radio',
           label: item.ville + ' - ' + item.pays,
@@ -89,7 +126,7 @@ export class HomePage implements OnInit{
       text: 'OK',
       handler: data => {
         this.depart = data;
-        console.log(data + ' est son choix');
+        console.log(data + ' est son choix de départ');
       }
     });
 
@@ -99,7 +136,7 @@ export class HomePage implements OnInit{
   showArriveAlert() {
     let alert = this.alertCtrl.create();
     alert.setTitle('Arrivées dispo');
-    
+
     this.villes.forEach(item => {
       if (item.ville == this.arrivee) {
         alert.addInput({
@@ -109,7 +146,7 @@ export class HomePage implements OnInit{
           checked: true
         })
       }
-      else  {
+      else {
         alert.addInput({
           type: 'radio',
           label: item.ville + ' - ' + item.pays,
@@ -122,9 +159,16 @@ export class HomePage implements OnInit{
     alert.addButton('Cancel');
     alert.addButton({
       text: 'OK',
-      handler: data => {
-        this.arrivee = data;
-        console.log(data + ' est son choix');
+      handler: arr => {
+        this.arrivee = arr;
+        console.log(arr + ' est son choix d\'arrivée');
+        this.storage.set('myVille', {
+          arr: arr
+        });
+        // this.storage.get('myVille').then((data) => {
+        //   this.arrive = data;
+
+        // })
       }
     });
 
@@ -180,6 +224,91 @@ export class HomePage implements OnInit{
       });
       console.log(this.text);
     }
+
+  }
+  getConnexion() {
+    let modal = this.modalCtrl.create(ConnexionPage);
+    modal.present();
+  }
+
+  getDepart() {
+    let modal = this.modalCtrl.create(DepartPage);
+    modal.present();
+  }
+
+  getArrivee() {
+    let modal = this.modalCtrl.create(ArriveePage);
+    modal.present();
+  }
+
+  openPage(page) {
+    // this.navCtrl.setRoot(page.component)
+    let modal = this.modalCtrl.create(page.component);
+    modal.present();
+    console.log("test")
+
+
+  }
+  logout() {
+    const authObserver = this.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.afAuth.auth.signOut();
+        console.log("signout");
+        this.toastCtrl.create({
+          message: 'Déconnexion réussie',
+          duration: 4000,
+          position: 'top',
+          showCloseButton: true,
+          closeButtonText: 'Fermer',
+
+        }).present();
+      } else {
+        this.toastCtrl.create({
+          message: 'Vous êtes déjà déconnecté',
+          duration: 4000,
+          position: 'top',
+          showCloseButton: true,
+          closeButtonText: 'Fermer',
+
+        }).present();
+      }
+    });
+
+    this.text = "Connectez-vous à Ticknet !";
+  }
+
+  exitAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Confirmer',
+      message: 'Vous nous quittez?',
+      buttons: [
+        {
+          text: 'Non',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Oui',
+          handler: () => {
+            this.platform.exitApp();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  getConnexionPage() {
+    this.menuCtrl.open('ConnexionPage');
+  }
+  getSignupPage() {
+    let modal = this.modalCtrl.create(SignupPage);
+    modal.present();
+  }
+  test() {
+    console.log("test")
 
   }
 

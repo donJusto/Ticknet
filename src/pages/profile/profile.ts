@@ -12,6 +12,8 @@ import { ConnexionPage } from '../connexion/connexion';
 import { Storage } from '@ionic/storage';
 import { Events } from 'ionic-angular';
 import { ReservationsPage } from '../reservations/reservations';
+import { HomePage } from '../home/home';
+
 //Providers
 import { UserProfileProvider } from '../../providers/user-profile/user-profile';
 
@@ -58,17 +60,17 @@ export class ProfilePage {
 
   creerProfil() {
     this.afAuth.authState.take(1).subscribe(auth => {
-      this.afDB.list(`profile/${auth.uid}`).push(this.profilModel)
-        .then(() => this.navCtrl.setRoot(ReservationsPage));
-      this.storage.set('myProfile', this.profilModel.identifiant);
-      this.storage.get('myProfile').then((data) => {
-        this.profilModel.identifiant = data;
+      this.afDB.object(`profile/${auth.uid}`).set(this.profilModel)
+        .then(() => this.navCtrl.setRoot(ConnexionPage));
+      // this.storage.set('myProfile', this.profilModel.identifiant);
+      // this.storage.get('myProfile').then((data) => {
+      //   this.profilModel.identifiant = data;
 
 
-        console.log(this.profilModel.identifiant);
-        console.log('User created!');
+      //   console.log(this.profilModel.identifiant);
+      //   console.log('User created!');
 
-      })
+      // })
 
     })
   }

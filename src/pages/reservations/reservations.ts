@@ -31,9 +31,9 @@ import { ListevilleProvider } from '../../providers/listeville/listeville';
 export class ReservationsPage implements OnInit {
 
   pages: Array<{ title: string, component: any }>
-  public myPerson = {};
-  public mybus = {};
-  public myville = [];
+  // public myPerson = {};
+  // public mybus = {};
+  // public myville = [];
 
   public loadedCountryList: any;
   public tic: string;
@@ -67,10 +67,10 @@ export class ReservationsPage implements OnInit {
     public listeVilleProvider: ListevilleProvider) 
     {
     // this.pays = afDB.list('/pays').valueChanges();
-    // this.pages = [
-    //   { title: 'Connexion', component: ConnexionPage },
-    //   { title: 'S\'identifier', component: SignupPage },
-    // ];
+    this.pages = [
+      { title: 'Connexion', component: ConnexionPage },
+      { title: 'S\'identifier', component: SignupPage },
+    ];
   }
 
   ngOnInit() {
@@ -108,21 +108,21 @@ export class ReservationsPage implements OnInit {
     });
 
 
-    const personRef: firebase.database.Reference = firebase.database().ref(`/person1/`);
-    personRef.on('value', personSnapshot => {
-      this.myPerson = personSnapshot.val();
-    });
-    console.log();
-    const mybusRef: firebase.database.Reference = firebase.database().ref(`/bus/`);
-    mybusRef.on('value', busSnapshot => {
-      this.mybus = busSnapshot.val();
-    });
-    const paysRef: firebase.database.Reference = firebase.database().ref(`/pays/`);
-    paysRef.on('value', paysSnapshot => {
-      this.pays = paysSnapshot.val();
-      // console.log(Niger[1].ville);
+    // const personRef: firebase.database.Reference = firebase.database().ref(`/person1/`);
+    // personRef.on('value', personSnapshot => {
+    //   this.myPerson = personSnapshot.val();
+    // });
+    // console.log();
+    // const mybusRef: firebase.database.Reference = firebase.database().ref(`/bus/`);
+    // mybusRef.on('value', busSnapshot => {
+    //   this.mybus = busSnapshot.val();
+    // });
+    // const paysRef: firebase.database.Reference = firebase.database().ref(`/pays/`);
+    // paysRef.on('value', paysSnapshot => {
+    //   this.pays = paysSnapshot.val();
+    //   // console.log(Niger[1].ville);
 
-    });
+    // });
     this.user = firebase.auth().currentUser;
     if (this.user != null) {
       this.name = this.user.displayName;
@@ -160,14 +160,14 @@ export class ReservationsPage implements OnInit {
   }
 
 
-  createPerson(firstName: string, lastName: string): void {
-    const personRef: firebase.database.Reference = firebase.database().ref(`/person1/`);
-    personRef.set({
-      firstName,
-      lastName
-    })
+  // createPerson(firstName: string, lastName: string): void {
+  //   const personRef: firebase.database.Reference = firebase.database().ref(`/person1/`);
+  //   personRef.set({
+  //     firstName,
+  //     lastName
+  //   })
 
-  }
+  // }
   logout() {
     const authObserver = this.afAuth.authState.subscribe(user => {
       if (user) {
@@ -220,7 +220,8 @@ export class ReservationsPage implements OnInit {
     });
     alert.present();
   }
-  openPage(page) {
+  openPage(page) {    console.log("test")
+
     // this.navCtrl.setRoot(page.component)
     let modal = this.modalCtrl.create(page.component);
     modal.present();
@@ -234,6 +235,10 @@ export class ReservationsPage implements OnInit {
     modal.present();
   }
 
+  test(){
+    console.log("test")
+
+  }
 
 
 }

@@ -21,11 +21,12 @@ import { HomePage } from '../home/home';
   templateUrl: 'tabs.html',
 })
 export class TabsPage {
-  tab1Root = ReservationsPage;
+  // tab1Root =  ReservationsPage;
   tab2Root = TicketsPage;
   tab3Root = ArretsPage;
   tab4Root = PreferencesPage;
-  tab5Root = HomePage;
+  tab1Root = HomePage;
+
 
   constructor(private afAuth: AngularFireAuth, private toastCtrl: ToastController, public alrtCtrl: AlertController, public platform: Platform, public authData: AuthProvider, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public afDB: AngularFireDatabase) {
 

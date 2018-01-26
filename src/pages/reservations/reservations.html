@@ -1,3 +1,30 @@
+<ion-menu [content]="content">
+  <ion-header>
+    <ion-toolbar color="secondary">
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+ 
+  <ion-content>
+    <ion-list>
+      <button ion-item *ngFor="let p of pages" (tap)="openPage(p)">
+        {{p.title}}
+      </button>
+      <!-- <button ion-item (click)="getConnexion()">
+        Connectez-vous!
+      </button>
+      <button ion-item (click)="getSignup()">
+        Identifiez-vous!
+      </button> -->
+
+      <button ion-item (click)="exitAlert()">
+        Quitter application
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-nav id="nav" #content swipeBackEnable="true" [root]="rootPage"></ion-nav>
 <ion-header>
 
   <ion-navbar color="secondary">
@@ -9,16 +36,18 @@
     </ion-buttons>
     <ion-buttons end>
       <button ion-button icon-only (tap)="logout()">
-        <ion-icon md="md-log-out"></ion-icon>
+        <ion-icon md="md-log-out" ></ion-icon>
+    
       </button>
     </ion-buttons>
 
     <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+      <ion-icon name="menu" (tap)="test()"></ion-icon>
     </button>
   </ion-navbar>
-  <marquee behavior="alternate" BGCOLOR="green">{{text}}</marquee>
+   <marquee behavior="alternate" BGCOLOR="green">{{text}}</marquee>
 </ion-header>
+
 
 <ion-content padding id="depart" color="secondary">
 
