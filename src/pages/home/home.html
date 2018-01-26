@@ -6,8 +6,8 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>HOME PAGE</ion-title>
+  <ion-navbar color='secondary'>
+    <ion-title text-center>NEW RESERVATION PAGE</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,16 +15,30 @@
 
 <ion-content padding>
 
- <form>
-  <ion-item>
-    <ion-label floating>Départ</ion-label>
-    <ion-input type="text" placeholder="Départ" [(ngModel)]="depart" name="depart" (tap)="showDepartAlert()" required=""></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label floating>Arrivée </ion-label>
-    <ion-input type="text" name="arrivee" [(ngModel)]="arrivee" (tap)="showArriveAlert()" required> </ion-input>
-  </ion-item>
-  
-  <!-- Tu dois compléter le code de la vue à l'aide ta vue de reservation  -->
-</form>
+  <form>
+    <ion-item>
+      <ion-label floating>Départ </ion-label>
+      <ion-input type="text" placeholder="Départ" [(ngModel)]="depart" name="depart" (tap)="showDepartAlert()" required=""></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Arrivée </ion-label>
+      <ion-input type="text" name="arrivee" [(ngModel)]="arrivee" (tap)="showArriveAlert()" required> </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Date Départ</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" min="2016" max="2050-12-31" name="date" required=""></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Date Arrivée</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" min="2016" max="2050-12-31" name="date" required=""></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Nombre de Tickets</ion-label>
+      <ion-input type="number" min="1" max="100" name="nbtickets" required=""></ion-input>
+    </ion-item>
+
+    <button ion-button id="resButton" (tap)="reserver()" color="secondary">Réserver</button>
+  </form>
 </ion-content>

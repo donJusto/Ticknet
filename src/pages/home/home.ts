@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
+import { IonicPage, ModalController, NavController, AlertController, NavParams } from 'ionic-angular';
 import { ListevilleProvider } from '../../providers/listeville/listeville';
 
 /**
@@ -23,11 +23,16 @@ export class HomePage implements OnInit{
   constructor(public navCtrl: NavController,
     public alertCtrl: AlertController, 
     public navParams: NavParams,
-    public villeProvider: ListevilleProvider
+    public villeProvider: ListevilleProvider,
+    public modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
     this.villes = this.villeProvider.countryList;
+  }
+
+  reserver() {
+    console.log("Aucune action implémentée pour l'instant ...");
   }
 
   showDepartAlert() {
@@ -35,12 +40,23 @@ export class HomePage implements OnInit{
     alert.setTitle('Départ');
     
     this.villes.forEach(item => {
-      alert.addInput({
-        type: 'radio',
-        label: item.ville + ' - ' + item.pays,
-        value: item.ville,
-        checked: false
-      });
+      
+      if (item.ville == this.depart) {
+        alert.addInput({
+          type: 'radio',
+          label: item.ville + ' - ' + item.pays,
+          value: item.ville,
+          checked: true
+        })
+      }
+      else  {
+        alert.addInput({
+          type: 'radio',
+          label: item.ville + ' - ' + item.pays,
+          value: item.ville,
+          checked: false
+        })
+      }
     });
 
     alert.addButton('Cancel');
@@ -60,12 +76,22 @@ export class HomePage implements OnInit{
     alert.setTitle('Arrivées dispo');
     
     this.villes.forEach(item => {
-      alert.addInput({
-        type: 'radio',
-        label: item.ville + ' - ' + item.pays,
-        value: item.ville,
-        checked: false
-      });
+      if (item.ville == this.arrivee) {
+        alert.addInput({
+          type: 'radio',
+          label: item.ville + ' - ' + item.pays,
+          value: item.ville,
+          checked: true
+        })
+      }
+      else  {
+        alert.addInput({
+          type: 'radio',
+          label: item.ville + ' - ' + item.pays,
+          value: item.ville,
+          checked: false
+        })
+      }
     });
 
     alert.addButton('Cancel');
@@ -79,5 +105,7 @@ export class HomePage implements OnInit{
 
     alert.present();
   }
+
+  // Todo: Find a way to prevent repetitive code
 
 }
