@@ -36,9 +36,7 @@ export class DepartPage {
 
   
   constructor(private storage: Storage,public listeVille: ListevilleProvider,private nativeStorage: NativeStorage, public events: Events, public navCtrl: NavController, public navParams: NavParams,private afDb: AngularFireDatabase) {
-
-    
-  }
+ }
 
  
 //enreigistrer localement le choix d'une ville de départ

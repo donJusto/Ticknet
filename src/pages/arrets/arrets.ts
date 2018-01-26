@@ -36,7 +36,7 @@ export class ArretsPage {
 
   constructor(private afAuth: AngularFireAuth, private toastCtrl: ToastController, public alrtCtrl: AlertController, public authData: AuthProvider, public modalCtrl: ModalController, public afDB: AngularFireDatabase, private storage: Storage, public listeVille: ListevilleProvider, public navCtrl: NavController) {
 
-    this.shareService.initializeItems();
+    // this.shareService.initializeItems();
   }
 
   ionViewDidLoad() {
